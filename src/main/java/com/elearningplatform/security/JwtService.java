@@ -14,8 +14,6 @@ import io.jsonwebtoken.Jwts;
 
 @Service
 public class JwtService {
-
-    private final JwtFilter jwtFilter;
 	
 	public static final String TOKEN_TYPE = "token_type";
 	private final PrivateKey privateKey;
@@ -27,10 +25,9 @@ public class JwtService {
     @Value("${app.security.jwt.refresh-token-expiration}")
     private long refreshTokenExpiration;
     
-    public JwtService(JwtFilter jwtFilter) throws Exception{
+    public JwtService() throws Exception{
     	this.privateKey = KeyUtils.loadPrivateKey("keys/local-only/private_key.pem");
     	this.publicKey = KeyUtils.loadPublicKey("keys/local-only/public_key.pem");
-    	this.jwtFilter = jwtFilter;
     }
     
     public String generateAccessToken(final String username) {
@@ -53,7 +50,7 @@ public class JwtService {
     	return username.equals(expectedUsername) && !isTokenExpired(token);
     }
     
-    private String extractUsername(String token) {
+    String extractUsername(String token) {
 		return extractClaims(token).getSubject();
 	}
 
@@ -89,8 +86,5 @@ public class JwtService {
 		final String username = claims.getSubject();
 	    return generateAccessToken(username);
 	}
-
-
-	
 
 }
