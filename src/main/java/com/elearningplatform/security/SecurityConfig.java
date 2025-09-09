@@ -1,5 +1,6 @@
 package com.elearningplatform.security;
 
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -35,7 +36,7 @@ public class SecurityConfig {
     
 	private final JwtFilter jwtFilter;
 	
-	
+	@Bean
 	public SecurityFilterChain filterChain(final HttpSecurity http) throws Exception{
 		return http.csrf(AbstractHttpConfigurer::disable)
 					.authorizeHttpRequests(auth -> auth.requestMatchers(PUBLIC_URLS)
