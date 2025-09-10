@@ -2,12 +2,23 @@ package com.elearningplatform.entity;
 
 import java.util.List;
 
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.experimental.SuperBuilder;
 
 @Entity
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@SuperBuilder
 @Table(name = "instructors")
 public class Instructor extends Personnel {
 	
@@ -19,36 +30,4 @@ public class Instructor extends Personnel {
     
     @OneToMany(mappedBy = "instructor", cascade = CascadeType.ALL)
     private List<CourseInstructor> courseAssignments;
-
-	public String getExpertise() {
-		return expertise;
-	}
-	public void setExpertise(String expertise) {
-		this.expertise = expertise;
-	}
-	public String getHeadline() {
-		return headline;
-	}
-	public void setHeadline(String headline) {
-		this.headline = headline;
-	}
-	public String getWebsiteUrl() {
-		return websiteUrl;
-	}
-	public void setWebsiteUrl(String websiteUrl) {
-		this.websiteUrl = websiteUrl;
-	}
-	public String getLinkedinUrl() {
-		return linkedinUrl;
-	}
-	public void setLinkedinUrl(String linkedinUrl) {
-		this.linkedinUrl = linkedinUrl;
-	}
-	public String getYoutubeUrl() {
-		return youtubeUrl;
-	}
-	public void setYoutubeUrl(String youtubeUrl) {
-		this.youtubeUrl = youtubeUrl;
-	}
-	
 }

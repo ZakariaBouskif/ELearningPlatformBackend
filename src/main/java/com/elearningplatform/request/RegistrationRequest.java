@@ -29,7 +29,7 @@ public class RegistrationRequest {
 	@NotBlank(message = "VALIDATION.REGISTRATION.LAST_NAME.BLANK")
 	@Size(min = 1, max = 50, message = "VALIDATION.REGISTRATION.LAST_NAME.SIZE")
 	@Pattern(regexp = "^[\\p{L} '-]+$", message = "VALIDATION.REGISTRATION.LAST_NAME.PATTERN")
-	@Schema(example = "Bouali")
+	@Schema(example = "Your last name")
 	String lastName;
 
 	@NotBlank(message = "VALIDATION.REGISTRATION.EMAIL.BLANK")
@@ -44,12 +44,12 @@ public class RegistrationRequest {
 	@NotBlank(message = "VALIDATION.REGISTRATION.PASSWORD.BLANK")
 	@Size(min = 8, max = 72, message = "VALIDATION.REGISTRATION.PASSWORD.SIZE")
 	@Pattern(regexp = "^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*\\W).*$", message = "VALIDATION.REGISTRATION.PASSWORD.WEAK")
-	@Schema(example = "MyPa$$wôrd!_")
+	@Schema(example = "MyPa$$wôrd!_1")
 	String password;
 
 	@NotBlank(message = "VALIDATION.REGISTRATION.CONFIRM_PASSWORD.BLANK")
 	@Size(min = 8, max = 72, message = "VALIDATION.REGISTRATION.CONFIRM_PASSWORD.SIZE")
-	@Schema(example = "MyPa$$wôrd!_")
+	@Schema(example = "MyPa$$wôrd!_1")
 	String confirmPassword;
 
 }

@@ -1,21 +1,26 @@
 package com.elearningplatform.entity;
 
+import com.elearningplatform.common.BaseEntity;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.experimental.SuperBuilder;
 
 @Entity
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@SuperBuilder
 @Table(name = "course_instructors")
-public class CourseInstructor {
-
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+public class CourseInstructor extends BaseEntity{
 
 	@ManyToOne
 	@JoinColumn(name = "course_id", nullable = false)
@@ -26,48 +31,8 @@ public class CourseInstructor {
 	private Instructor instructor;
 	
 	@Column(name="primary_instructor")
-    private Boolean primaryInstructor = false;
+    private Boolean primaryInstructor;
 	
 	@Column(name="order_index")
 	private Integer orderIndex;
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public Course getCourse() {
-		return course;
-	}
-
-	public void setCourse(Course course) {
-		this.course = course;
-	}
-
-	public Instructor getInstructor() {
-		return instructor;
-	}
-
-	public void setInstructor(Instructor instructor) {
-		this.instructor = instructor;
-	}
-
-	public Boolean getPrimaryInstructor() {
-		return primaryInstructor;
-	}
-
-	public void setPrimaryInstructor(Boolean primaryInstructor) {
-		this.primaryInstructor = primaryInstructor;
-	}
-
-	public Integer getOrderIndex() {
-		return orderIndex;
-	}
-
-	public void setOrderIndex(Integer orderIndex) {
-		this.orderIndex = orderIndex;
-	}
 }
