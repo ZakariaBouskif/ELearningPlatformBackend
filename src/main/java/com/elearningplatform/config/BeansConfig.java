@@ -12,17 +12,17 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 public class BeansConfig {
 
 	@Bean
-	public PasswordEncoder passwordEncoder() {
+	PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
 	}
 	
 	@Bean
-    public AuthenticationManager authenticationManager(final AuthenticationConfiguration config) throws Exception {
+    AuthenticationManager authenticationManager(final AuthenticationConfiguration config) throws Exception {
         return config.getAuthenticationManager();
     }
 	
 	@Bean
-	public AuditorAware<Long> auditorAware(){
+	AuditorAware<Long> auditorAware(){
 		return new ApplicationAuditorAware();
 	}
 	

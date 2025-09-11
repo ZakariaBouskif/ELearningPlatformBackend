@@ -25,7 +25,7 @@ public enum ErrorCode {
 	INTERNAL_EXCEPTION("INTERNAL_EXCEPTION", "An internal exception occurred, please try again or contact the admin",
 			HttpStatus.INTERNAL_SERVER_ERROR),
 	USERNAME_NOT_FOUND("USERNAME_NOT_FOUND", "Cannot find user with the provided username", HttpStatus.NOT_FOUND),
-	CATEGORY_ALREADY_EXISTS_FOR_USER("CATEGORY_ALREADY_EXISTS_FOR_USER", "Category already exists for this user",
+	CATEGORY_ALREADY_EXISTS_("CATEGORY_ALREADY_EXISTS", "Category already exists",
 			HttpStatus.CONFLICT),;
 
 	private final String code;
