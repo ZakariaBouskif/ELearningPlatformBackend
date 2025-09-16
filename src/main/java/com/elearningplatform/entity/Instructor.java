@@ -4,6 +4,7 @@ import java.util.List;
 
 
 import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
@@ -22,8 +23,9 @@ import lombok.experimental.SuperBuilder;
 @Table(name = "instructors")
 public class Instructor extends Personnel {
 	
-	private String expertise;      
-    private String headline;        
+	@Column(columnDefinition = "TEXT")
+	private String expertise; 
+    
     private String websiteUrl;
     private String linkedinUrl;
     private String youtubeUrl;

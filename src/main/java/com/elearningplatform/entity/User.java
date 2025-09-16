@@ -1,6 +1,5 @@
 package com.elearningplatform.entity;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.List;
@@ -47,23 +46,11 @@ public class User implements UserDetails {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@Column(name = "first_name", nullable = false)
-	private String firstName;
-
-	@Column(name = "last_name", nullable = false)
-	private String lastName;
-
 	@Column(name = "email", unique = true, nullable = false)
 	private String email;
-	
-	@Column(name = "phone_number", unique = true, nullable = false)
-	private String phoneNumber;
 
 	@Column(name = "password", nullable = false)
 	private String password;
-
-	@Column(name = "date_of_birth")
-	private LocalDate dateOfBirth;
 
 	@Column(name = "is_enabled")
 	private boolean enabled;
@@ -105,11 +92,6 @@ public class User implements UserDetails {
 	}
 
 	@Override
-	public String getPassword() {
-		return password;
-	}
-
-	@Override
 	public String getUsername() {
 		return email;
 	}
@@ -132,10 +114,6 @@ public class User implements UserDetails {
 	@Override
 	public boolean isCredentialsNonExpired() {
 		return !this.credentialsExpired;
-	}
-
-	public String getFullName() {
-		return this.firstName + " " + this.lastName;
 	}
 
 }

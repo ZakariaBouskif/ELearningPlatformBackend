@@ -9,7 +9,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class CategoryCourseDto{
+public class InstructorDto {
 	private Long id;
-	private String title;
+	private String firstName;
+	private String lastName;
 }

@@ -9,7 +9,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class CategoryCourseDto{
+public class StudentDto{
 	private Long id;
-	private String title;
+	private String firstName;
+	private String lastName;
+		
 }

@@ -26,7 +26,7 @@ public abstract class Personnel extends BaseEntity {
 	
 	private String firstName;
 	
-	private String secondName;
+	private String lastName;
 	
 	@Enumerated(EnumType.ORDINAL)
 	private Gender gender;

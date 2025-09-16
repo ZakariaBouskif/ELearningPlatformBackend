@@ -16,10 +16,6 @@ public interface CategoryCourseMapper {
 
     // Request → Entity (for CREATE)
     @Mapping(target = "id", ignore = true)
-    @Mapping(target = "createdAt", ignore = true)
-    @Mapping(target = "createdBy", ignore = true)
-    @Mapping(target = "lastModifiedDate", ignore = true)
-    @Mapping(target = "lastModifiedBy", ignore = true)
     @Mapping(target = "title", source = "title")
     CategoryCourse toEntity(CategoryCourseRequest request);
 

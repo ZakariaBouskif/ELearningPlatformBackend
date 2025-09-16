@@ -9,7 +9,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class CategoryCourseDto{
+public class CourseDto {
 	private Long id;
 	private String title;
+	private CategoryCourseDto categoryCourse;
 }

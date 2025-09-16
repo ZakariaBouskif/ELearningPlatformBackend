@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.elearningplatform.entity.User;
 import com.elearningplatform.request.ChangePasswordRequest;
-import com.elearningplatform.request.ProfileUpdateRequest;
 import com.elearningplatform.service.UserService;
 
 import io.swagger.v3.oas.annotations.parameters.RequestBody;
@@ -26,12 +25,6 @@ public class UserController {
 
 	private final UserService userService;
 
-	@PatchMapping("/me")
-	@ResponseStatus(code = HttpStatus.NO_CONTENT)
-	public void updateProfile(@RequestBody @Valid final ProfileUpdateRequest request, final Authentication principal) {
-		userService.updateprofileInfo(request, getUserId(principal));
-	}
-
 	@PostMapping("/me/password")
 	@ResponseStatus(code = HttpStatus.NO_CONTENT)
 	public void changePassword(@RequestBody @Valid final ChangePasswordRequest request,
@@ -44,7 +37,6 @@ public class UserController {
 	public void toggleActivationAccount(final Authentication principal) {
 		userService.toggleActivationAccount(getUserId(principal));
 	}
-
 
 	private Long getUserId(final Authentication authentication) {
 		return ((User) authentication.getPrincipal()).getId();

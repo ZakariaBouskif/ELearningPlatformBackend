@@ -19,28 +19,14 @@ import lombok.Setter;
 @NoArgsConstructor
 @Builder
 public class RegistrationRequest {
-
-	@NotBlank(message = "VALIDATION.REGISTRATION.FIRST_NAME.BLANK")
-	@Size(min = 1, max = 50, message = "VALIDATION.REGISTRATION.FIRST_NAME.SIZE")
-	@Pattern(regexp = "^[\\p{L} '-]+$", message = "VALIDATION.REGISTRATION.FIRST_NAME_PATTERN")
-	@Schema(example = "Your first name")
-	String firstName;
-
-	@NotBlank(message = "VALIDATION.REGISTRATION.LAST_NAME.BLANK")
-	@Size(min = 1, max = 50, message = "VALIDATION.REGISTRATION.LAST_NAME.SIZE")
-	@Pattern(regexp = "^[\\p{L} '-]+$", message = "VALIDATION.REGISTRATION.LAST_NAME.PATTERN")
-	@Schema(example = "Your last name")
-	String lastName;
-
+	
 	@NotBlank(message = "VALIDATION.REGISTRATION.EMAIL.BLANK")
 	@Email(message = "VALIDATION.REGISTRATION.EMAIL.FORMAT")
 	@NonDisposableEmail(message = "VALIDATION.REGISTRATION.EMAIL.DISPOSABLE")
 	@Schema(example = "mail@gmail.com")
 	String email;
 
-	@Schema(example = "+212 66666666")
-	String phoneNumber;
-
+	
 	@NotBlank(message = "VALIDATION.REGISTRATION.PASSWORD.BLANK")
 	@Size(min = 8, max = 72, message = "VALIDATION.REGISTRATION.PASSWORD.SIZE")
 	@Pattern(regexp = "^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*\\W).*$", message = "VALIDATION.REGISTRATION.PASSWORD.WEAK")

@@ -57,7 +57,6 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 	@Transactional
 	public void register(RegistrationRequest request) {
 		checkUserEmail(request.getEmail());
-		checkUserPhoneNumber(request.getPhoneNumber());
 		checkPasswords(request.getPassword(), request.getConfirmPassword());
 
 		final Role userRole = this.roleRepository.findByName("ROLE_USER")
@@ -97,13 +96,6 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 	private void checkPasswords(final String password, final String confirmPassword) {
 		if (password == null || !password.equals(confirmPassword)) {
 			throw new BusinessException(ErrorCode.PASSWORD_MISMATCH);
-		}
-	}
-
-	private void checkUserPhoneNumber(final String phoneNumber) {
-		final boolean phoneNumberExists = this.userRepository.existsByPhoneNumber(phoneNumber);
-		if (phoneNumberExists) {
-			throw new BusinessException(ErrorCode.PHONE_ALREADY_EXISTS);
 		}
 	}
 
