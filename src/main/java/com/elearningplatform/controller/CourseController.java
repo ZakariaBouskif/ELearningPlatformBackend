@@ -20,7 +20,6 @@ import com.elearningplatform.service.CourseService;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotNull;
 
 @RestController
 @RequestMapping("/api/v1/courses")

@@ -10,6 +10,8 @@ import com.elearningplatform.entity.CategoryCourse;
 import com.elearningplatform.entity.Course;
 import com.elearningplatform.entity.CourseInstructor;
 import com.elearningplatform.entity.Instructor;
+import com.elearningplatform.enumeration.ErrorCode;
+import com.elearningplatform.exception.BusinessException;
 import com.elearningplatform.mapper.CourseMapper;
 import com.elearningplatform.repository.CategoryCourseRepository;
 import com.elearningplatform.repository.CourseInstructorRepository;
@@ -40,16 +42,17 @@ public class CourseServiceImpl implements CourseService {
 	@Override
 	public CourseDto findById(Long id) {
 		return courseRepository.findById(id).map(mapper::toDto)
-				.orElseThrow(() -> new RuntimeException("Category Course not found"));
+				.orElseThrow(() -> new BusinessException(ErrorCode.COURSE_ALREADY_EXISTS));
 	}
 
 	@Override
 	public CourseDto create(CourseRequest request) {
 		CategoryCourse categoryCourse = categoryCourseRepository.findById(request.categoryCourse())
-				.orElseThrow(() -> new IllegalArgumentException("Category not found"));
+				.orElseThrow(() -> new BusinessException(ErrorCode.CATEGORY_NOT_FOUND));
 		Course entity = mapper.toEntity(request);
 		entity.setCategoryCourse(categoryCourse);
 		Course saved = courseRepository.save(entity);
+		
 		return mapper.toDto(saved);
 	}
 
@@ -57,7 +60,7 @@ public class CourseServiceImpl implements CourseService {
 	public CourseDto update(Long id, CourseRequest request) {
 		Course entity = courseRepository.findById(id).orElseThrow(() -> new RuntimeException("Course not found"));
 		CategoryCourse categoryCourse = categoryCourseRepository.findById(request.categoryCourse())
-				.orElseThrow(() -> new IllegalArgumentException("Category not found"));
+				.orElseThrow(() -> new BusinessException(ErrorCode.CATEGORY_NOT_FOUND));
 		mapper.updateEntityFromRequest(request, entity);
 		entity.setCategoryCourse(categoryCourse);
 		Course saved = courseRepository.save(entity);
@@ -72,10 +75,10 @@ public class CourseServiceImpl implements CourseService {
 	@Override
 	public boolean assignInstructor(Long courseId, AssignInstructorRequest request) {
 		Course course = courseRepository.findById(courseId)
-				.orElseThrow(() -> new IllegalArgumentException("Course not found"));
+				.orElseThrow(() -> new BusinessException(ErrorCode.COURSE_NOT_FOUND));
 
 		Instructor instructor = instructorRepository.findById(request.instructorId())
-				.orElseThrow(() -> new IllegalArgumentException("Instructor not found"));
+				.orElseThrow(() -> new BusinessException(ErrorCode.INSTRUCTOR_NOT_FOUND));
 
 		// Check for duplicates
 		boolean alreadyAssigned = course.getInstructors().stream()

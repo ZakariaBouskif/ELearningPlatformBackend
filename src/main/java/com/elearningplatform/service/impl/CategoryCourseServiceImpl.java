@@ -6,6 +6,8 @@ import org.springframework.stereotype.Service;
 
 import com.elearningplatform.dto.CategoryCourseDto;
 import com.elearningplatform.entity.CategoryCourse;
+import com.elearningplatform.enumeration.ErrorCode;
+import com.elearningplatform.exception.BusinessException;
 import com.elearningplatform.mapper.CategoryCourseMapper;
 import com.elearningplatform.repository.CategoryCourseRepository;
 import com.elearningplatform.request.CategoryCourseRequest;
@@ -32,7 +34,7 @@ public class CategoryCourseServiceImpl implements CategoryCourseService{
     public CategoryCourseDto findById(Long id) {
         return repository.findById(id)
                 .map(mapper::toDto)
-                .orElseThrow(() -> new RuntimeException("Category Course not found"));
+                .orElseThrow(() -> new BusinessException(ErrorCode.CATEGORY_NOT_FOUND));
     }
 
     @Override

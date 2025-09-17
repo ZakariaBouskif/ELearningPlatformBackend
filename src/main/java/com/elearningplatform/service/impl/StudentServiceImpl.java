@@ -6,6 +6,8 @@ import org.springframework.stereotype.Service;
 
 import com.elearningplatform.dto.StudentDto;
 import com.elearningplatform.entity.Student;
+import com.elearningplatform.enumeration.ErrorCode;
+import com.elearningplatform.exception.BusinessException;
 import com.elearningplatform.mapper.StudentMapper;
 import com.elearningplatform.repository.StudentRepository;
 import com.elearningplatform.request.StudentRequest;
@@ -32,7 +34,7 @@ public class StudentServiceImpl implements StudentService {
     public StudentDto findById(Long id) {
         return repository.findById(id)
                 .map(mapper::toDto)
-                .orElseThrow(() -> new RuntimeException("Category Course not found"));
+                .orElseThrow(() -> new BusinessException(ErrorCode.STUDENT_NOT_FOUND));
     }
 
     @Override
@@ -45,7 +47,7 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public StudentDto update(Long id, StudentRequest request) {
         Student entity = repository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Student not found"));
+                .orElseThrow(() -> new BusinessException(ErrorCode.STUDENT_NOT_FOUND));
         mapper.updateEntityFromRequest(request, entity);
         Student saved = repository.save(entity);
         return mapper.toDto(saved);

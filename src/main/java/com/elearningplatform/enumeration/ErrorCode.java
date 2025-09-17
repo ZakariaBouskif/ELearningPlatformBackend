@@ -25,8 +25,21 @@ public enum ErrorCode {
 	INTERNAL_EXCEPTION("INTERNAL_EXCEPTION", "An internal exception occurred, please try again or contact the admin",
 			HttpStatus.INTERNAL_SERVER_ERROR),
 	USERNAME_NOT_FOUND("USERNAME_NOT_FOUND", "Cannot find user with the provided username", HttpStatus.NOT_FOUND),
-	CATEGORY_ALREADY_EXISTS_("CATEGORY_ALREADY_EXISTS", "Category already exists",
-			HttpStatus.CONFLICT),;
+	
+	
+	CATEGORY_NOT_FOUND("CATEGORY_NOT_FOUND", "Category not found", HttpStatus.NOT_FOUND),
+	CATEGORY_ALREADY_EXISTS("CATEGORY_ALREADY_EXISTS", "Category already exists", HttpStatus.CONFLICT),
+	
+	
+	COURSE_NOT_FOUND("COURSE_NOT_FOUND", "Course not found", HttpStatus.NOT_FOUND),
+	INSTRUCTOR_NOT_FOUND("INSTRUCTOR_NOT_FOUND", "Instructor not found", HttpStatus.NOT_FOUND),
+	STUDENT_NOT_FOUND("STUDENT_NOT_FOUND", "Student not found", HttpStatus.NOT_FOUND),
+	
+	COURSE_ALREADY_EXISTS("COURSE_ALREADY_EXISTS", "Course already exists", HttpStatus.CONFLICT),
+	INSTRCUTOR_ALREADY_ASSIGNED_TO_COURSE("INSTRUCTOR_ALREADY_ASSIGNED_TO_COURSE", "Instructor already assigned to this course", HttpStatus.CONFLICT),
+	
+	
+	;
 
 	private final String code;
 	private final String defaultMessage;

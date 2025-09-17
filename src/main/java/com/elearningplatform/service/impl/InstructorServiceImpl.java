@@ -6,6 +6,8 @@ import org.springframework.stereotype.Service;
 
 import com.elearningplatform.dto.InstructorDto;
 import com.elearningplatform.entity.Instructor;
+import com.elearningplatform.enumeration.ErrorCode;
+import com.elearningplatform.exception.BusinessException;
 import com.elearningplatform.mapper.InstructorMapper;
 import com.elearningplatform.repository.InstructorRepository;
 import com.elearningplatform.request.InstructorRequest;
@@ -32,7 +34,7 @@ public class InstructorServiceImpl implements InstructorService {
     public InstructorDto findById(Long id) {
         return repository.findById(id)
                 .map(mapper::toDto)
-                .orElseThrow(() -> new RuntimeException("Category Course not found"));
+                .orElseThrow(() -> new BusinessException(ErrorCode.INSTRUCTOR_NOT_FOUND));
     }
 
     @Override
@@ -45,7 +47,7 @@ public class InstructorServiceImpl implements InstructorService {
     @Override
     public InstructorDto update(Long id, InstructorRequest request) {
         Instructor entity = repository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Instructor not found"));
+                .orElseThrow(() -> new BusinessException(ErrorCode.INSTRUCTOR_NOT_FOUND));
         mapper.updateEntityFromRequest(request, entity);
         Instructor saved = repository.save(entity);
         return mapper.toDto(saved);
