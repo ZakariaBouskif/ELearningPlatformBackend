@@ -10,6 +10,8 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.Transient;
 import lombok.AllArgsConstructor;
@@ -56,7 +58,11 @@ public class Lesson extends BaseEntity {
 	@Builder.Default
 	@Column(name = "is_free")
 	private Boolean isFree = false;
-
+	
+	@ManyToOne
+	@JoinColumn(name="section_id")
+	private Section section;
+	
 	@Transient
 	public String getFormattedDuration() {
 		if (duration == null)

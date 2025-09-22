@@ -34,10 +34,13 @@ public enum ErrorCode {
 	COURSE_NOT_FOUND("COURSE_NOT_FOUND", "Course not found", HttpStatus.NOT_FOUND),
 	INSTRUCTOR_NOT_FOUND("INSTRUCTOR_NOT_FOUND", "Instructor not found", HttpStatus.NOT_FOUND),
 	STUDENT_NOT_FOUND("STUDENT_NOT_FOUND", "Student not found", HttpStatus.NOT_FOUND),
+	SECTION_NOT_FOUND("SECTION_NOT_FOUND", "Section not found", HttpStatus.NOT_FOUND),
+	SECTION_ALREADY_ASSIGNED_TO_COURSE("SECTION_ALREADY_ASSIGNED_TO_COURSE", "Section already assigned to this course", HttpStatus.BAD_REQUEST),
+	SECTION_NOT_ASSIGNED_TO_COURSE("SECTION_NOT_ASSIGNED_TO_COURSE", "Section NOT assigned to this course", HttpStatus.BAD_REQUEST),
 	
 	COURSE_ALREADY_EXISTS("COURSE_ALREADY_EXISTS", "Course already exists", HttpStatus.CONFLICT),
-	INSTRCUTOR_ALREADY_ASSIGNED_TO_COURSE("INSTRUCTOR_ALREADY_ASSIGNED_TO_COURSE", "Instructor already assigned to this course", HttpStatus.CONFLICT),
-	
+	INSTRCUTOR_ALREADY_ASSIGNED_TO_COURSE("INSTRUCTOR_ALREADY_ASSIGNED_TO_COURSE", "Instructor already assigned to this course", HttpStatus.BAD_REQUEST),
+	INSTRUCTOR_NOT_ASSIGNED_TO_COURSE("INSTRUCTOR_NOT_ASSIGNED_TO_COURSE", "Instructor not assigned to this course", HttpStatus.BAD_REQUEST)
 	
 	;
 

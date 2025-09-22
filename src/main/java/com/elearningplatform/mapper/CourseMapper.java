@@ -17,7 +17,6 @@ public interface CourseMapper {
     CourseDto toDto(Course entity);
 
     // Request → Entity (for CREATE)
-    @Mapping(target = "id", ignore = true)
     Course toEntity(CourseRequest request);
 
     // Update existing entity

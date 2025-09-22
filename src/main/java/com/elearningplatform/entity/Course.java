@@ -1,8 +1,12 @@
 package com.elearningplatform.entity;
 
+import java.beans.Transient;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import com.elearningplatform.common.BaseEntity;
 import com.elearningplatform.enumeration.ElementLevel;
@@ -70,4 +74,36 @@ public class Course extends BaseEntity{
 	
 	@OneToMany(mappedBy = "course", cascade = CascadeType.ALL)
 	private List<CourseInstructor> instructors;
+	
+	@OneToMany(mappedBy = "course", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<CourseSection> courseSections;
+	
+	@Transient
+	public List<Section> getSections(){
+		return courseSections.stream()
+							.sorted(Comparator.comparingInt(CourseSection::getDisplayOrder))
+							.map(CourseSection::getSection)
+							.collect(Collectors.toList());
+	}
+	
+	public void addSection(Section section, Integer order) {
+		CourseSection courseSection = CourseSection.builder()
+													.course(this)
+													.section(section)
+													.displayOrder(order != null ? order : getNextSectionOrder())
+													.build();
+		courseSections.add(courseSection);
+	}
+	
+	public void removeSection(Section section) {
+		courseSections.removeIf(courseSection -> courseSection.getSection().equals(section));
+	}
+	
+	
+	private Integer getNextSectionOrder() {
+		return courseSections.stream()
+							.mapToInt(CourseSection::getDisplayOrder)
+							.max()
+							.orElse(-1) + 1;
+	}
 }

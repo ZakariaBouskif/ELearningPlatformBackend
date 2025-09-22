@@ -15,13 +15,10 @@ public interface CategoryCourseMapper {
     CategoryCourseDto toDto(CategoryCourse entity);
 
     // Request → Entity (for CREATE)
-    @Mapping(target = "id", ignore = true)
-    @Mapping(target = "title", source = "title")
     CategoryCourse toEntity(CategoryCourseRequest request);
 
     // Update existing entity
-    void updateEntityFromRequest(CategoryCourseRequest request,
-                                 @MappingTarget CategoryCourse entity);
+    void updateEntityFromRequest(CategoryCourseRequest request, @MappingTarget CategoryCourse entity);
 
 	
 }

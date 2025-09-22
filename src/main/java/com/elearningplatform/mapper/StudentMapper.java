@@ -15,7 +15,7 @@ public interface StudentMapper {
     StudentDto toDto(Student entity);
 
     // Request → Entity (for CREATE)
-    @Mapping(target = "id", ignore = true)
+   
     Student toEntity(StudentRequest request);
 
     // Update existing entity

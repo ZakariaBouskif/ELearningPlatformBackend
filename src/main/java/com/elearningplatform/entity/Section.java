@@ -1,14 +1,15 @@
 package com.elearningplatform.entity;
 
-
+import java.util.List;
+import java.util.stream.Collectors;
 
 import com.elearningplatform.common.BaseEntity;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.OrderBy;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -31,21 +32,29 @@ public class Section extends BaseEntity {
 
 	@Column(columnDefinition = "TEXT")
 	private String description;
-	
+
 	@Builder.Default
-	@Column(name="display_order")
-	private Integer displayOrder = 0;
-	
-	@Builder.Default
-	@Column(name="is_published")
+	@Column(name = "is_published")
 	private Boolean isPublished = false;
-	
+
 	@Builder.Default
-	@Column(name="is_previewable")
+	@Column(name = "is_previewable")
 	private Boolean isPreviewable = false;
+
+	@Builder.Default
+	@Column(name = "is_shareable")
+	private Boolean isShareable = true;
+
+	@OneToMany(mappedBy = "section", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<CourseSection> courseSections;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "course_id", nullable = false)
-    private Course course;
+	@OneToMany(mappedBy = "section", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OrderBy("displayOrder ASC")
+    private List<Lesson> lessons;
 	
+	public List<Course> getCourses(){
+		return courseSections.stream()
+							.map(CourseSection::getCourse)
+							.collect(Collectors.toList());
+	}
 }

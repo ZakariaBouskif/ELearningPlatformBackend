@@ -5,11 +5,15 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.elearningplatform.dto.CourseDto;
+import com.elearningplatform.dto.CourseFullDto;
+import com.elearningplatform.dto.CourseWithSectionsDto;
 import com.elearningplatform.dto.InstructorDto;
+import com.elearningplatform.dto.SectionDto;
 import com.elearningplatform.entity.CategoryCourse;
 import com.elearningplatform.entity.Course;
 import com.elearningplatform.entity.CourseInstructor;
 import com.elearningplatform.entity.Instructor;
+import com.elearningplatform.entity.Section;
 import com.elearningplatform.enumeration.ErrorCode;
 import com.elearningplatform.exception.BusinessException;
 import com.elearningplatform.mapper.CourseMapper;
@@ -84,7 +88,7 @@ public class CourseServiceImpl implements CourseService {
 		boolean alreadyAssigned = course.getInstructors().stream()
 				.anyMatch(ci -> ci.getInstructor().getId().equals(instructor.getId()));
 		if (alreadyAssigned) {
-			throw new IllegalStateException("Instructor already assigned to this course");
+			throw new BusinessException(ErrorCode.INSTRCUTOR_ALREADY_ASSIGNED_TO_COURSE);
 		}
 
 		CourseInstructor relation = CourseInstructor.builder().course(course).instructor(instructor)
@@ -93,6 +97,27 @@ public class CourseServiceImpl implements CourseService {
 		course.getInstructors().add(relation);
 		return courseRepository.save(course).getId() > 0;
 	}
+	
+	@Override
+	public boolean unassignInstructor(Long courseId, AssignInstructorRequest request) {
+		Course course = courseRepository.findById(courseId)
+				.orElseThrow(() -> new BusinessException(ErrorCode.COURSE_NOT_FOUND));
+
+		Instructor instructor = instructorRepository.findById(request.instructorId())
+				.orElseThrow(() -> new BusinessException(ErrorCode.INSTRUCTOR_NOT_FOUND));
+
+		 // Find the relation
+	    CourseInstructor relation = course.getInstructors().stream()
+	            .filter(ci -> ci.getInstructor().getId().equals(instructor.getId()))
+	            .findFirst()
+	            .orElseThrow(() -> new BusinessException(ErrorCode.INSTRUCTOR_NOT_ASSIGNED_TO_COURSE));
+
+	    course.getInstructors().remove(relation);
+
+	    return courseRepository.save(course).getId() > 0;
+
+	}
+
 
 	@Override
 	public List<InstructorDto> getInstructorsByCourse(Long courseId) {
@@ -105,4 +130,24 @@ public class CourseServiceImpl implements CourseService {
 				.toList();
 	}
 
+	@Override
+	public CourseWithSectionsDto getCourseWithSections(Long courseId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public CourseFullDto getFullCourse(Long courseId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<SectionDto> getSectionsByCourseId(Long courseId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
 }
+
+
