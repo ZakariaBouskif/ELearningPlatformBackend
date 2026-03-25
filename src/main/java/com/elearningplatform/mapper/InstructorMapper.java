@@ -13,7 +13,7 @@ public interface InstructorMapper {
 	
 	// Entity → DTO
     InstructorDto toDto(Instructor entity);
-  
+
 
     // Request → Entity (for CREATE)
     Instructor toEntity(InstructorRequest request);

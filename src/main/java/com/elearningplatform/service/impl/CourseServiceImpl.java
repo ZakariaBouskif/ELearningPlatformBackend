@@ -1,6 +1,7 @@
 package com.elearningplatform.service.impl;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
@@ -12,15 +13,13 @@ import com.elearningplatform.dto.SectionDto;
 import com.elearningplatform.entity.CategoryCourse;
 import com.elearningplatform.entity.Course;
 import com.elearningplatform.entity.CourseInstructor;
+import com.elearningplatform.entity.CourseSection;
 import com.elearningplatform.entity.Instructor;
 import com.elearningplatform.entity.Section;
 import com.elearningplatform.enumeration.ErrorCode;
 import com.elearningplatform.exception.BusinessException;
 import com.elearningplatform.mapper.CourseMapper;
-import com.elearningplatform.repository.CategoryCourseRepository;
-import com.elearningplatform.repository.CourseInstructorRepository;
-import com.elearningplatform.repository.CourseRepository;
-import com.elearningplatform.repository.InstructorRepository;
+import com.elearningplatform.repository.*;
 import com.elearningplatform.request.AssignInstructorRequest;
 import com.elearningplatform.request.CourseRequest;
 import com.elearningplatform.service.CourseService;
@@ -31,12 +30,16 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class CourseServiceImpl implements CourseService {
 
+
 	private final CourseRepository courseRepository;
 	private final CategoryCourseRepository categoryCourseRepository;
 	private final InstructorRepository instructorRepository;
 	private final CourseInstructorRepository courseInstructorRepository;
+    private final CourseSectionRepository courseSectionRepository;
 
 	private final CourseMapper mapper;
+
+    
 
 	@Override
 	public List<CourseDto> findAll() {
@@ -132,7 +135,6 @@ public class CourseServiceImpl implements CourseService {
 
 	@Override
 	public CourseWithSectionsDto getCourseWithSections(Long courseId) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
